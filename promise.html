@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <button>Click</button>
+    <p></p>
+</body>
+</html>
+<script>
+    document.querySelector("button").addEventListener("click",promiseFunc)
+    function promiseFunc(){
+        var output=document.querySelector('#input').value
+        var num = /^[0-9]+$/;
+        var obj1={
+            success:true,
+            message:"success"
+        }
+        var obj2={
+            success:false,
+            message:  "invalid argument, promise accepts only valid numbers"
+        }
+        var myPromise= new Promise(function (resolve,reject){
+            setTimeout(function () {
+				if (num.test(output)) {
+                    // console.log(1)
+					resolve(obj1);
+				} else {
+                    // console.log(2)
+					reject(obj2);
+				}
+			});
+        });
+        var div1=document.createElement("div")
+        var div2=document.createElement("div")
+        var paragraph=document.querySelector("p")
+        myPromise
+        .then(function (res){
+    //  console.log('res:', res)
+    div1.innerHTML=`success: ${res.success}`
+    div2.innerHTML=`message: ${res.message}`
+    paragraph.append(div1,div2)
+ })
+ //* if the promise is failed*//
+.catch(function (error){
+    // console.log('err:',error)
+    div1.innerHTML=`success: ${error.success}`
+    div2.innerHTML=`message: ${error.message}`
+    paragraph.append(div1,div2)
+})
+    }
+    
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: aquamarine;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+    img{
+        width: 60%;
+        height:60%
+    }
+    div{
+        display: grid;
+        grid-template-columns: repeat(2,50%);
+    }
+</style>
+<body>
+<div id="con"></div>
+</body>
+
+</html>
+<script>
+    var url =  "https://reqres.in/api/users?page=2"
+    fetch(url)
+        .then(function (res) {
+            console.log("res:", res)
+            return res.json()
+        })
+        .then(function (final_res) {
+            // console.log("final_res:",final_res)
+           var data=final_res.data
+            // console.log(data)
+            dom(data)
+        })
+        .catch(function (error) {
+            console.log("error:", error)
+        })
+    function dom(data) {
+       data.forEach(function (el,i) {
+           if(i<5){
+            var div = document.createElement(div)
+            var avatar = document.createElement("img")
+           avatar.src = el.avatar
+            var email = document.createElement("p");
+            email.innerHTML = el.email;
+            var first_name = document.createElement("h1");
+            first_name.innerHTML = el.first_name;
+            div.append(avatar,email,first_name)
+         con.append(div)
+      
+         document.querySelector("body").append(con)
+           }
+        })
+     }
+
+
+</script>
